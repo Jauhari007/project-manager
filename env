@@ -1,0 +1,18 @@
+uml-manajemen-project/
+├── controllers/
+│   └── proyekController.js
+├── models/
+│   ├── proyek.js
+│   └── user.js
+├── public/
+│   └── styles.css
+├── routes/
+│   └── proyekRoutes.js
+├── views/
+│   ├── index.ejs
+│   ├── admin.ejs
+│   └── mandor.ejs
+├── data/
+│   └── proyek.json
+├── app.js
+├── package.json
