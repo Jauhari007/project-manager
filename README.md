@@ -10,21 +10,9 @@ Tetap Semangat
 
 ## Prasyarat
 Sebelum memulai, pastikan memiliki hal-hal berikut:
-1. **Node.js**:
-- Buka/download https://nodejs.org/
-- Klik tombol LTS untuk download installer yang stabil.
-- Install sampai finish
-- Setelah selesai, buka terminal (cmd, PowerShell,   Git Bash, VSCode terminal).
-- Cek intalasi dengan perintah node -v
-- terus cek dengan perintah npm -v
-- Saran terminalnya pakai CMD aja
-- Setelah muncul notif versi misal v22.16.0
-- ketikkan app.js 
-- jika muncul notif "Node.js v22.16.0" 
-- Lanjut ketik "npm install" kalau sudah pernah install ketik "npm start"
-- jika berhasil ketik node app.js untuk mendapatkan link server
-- ctrl+c untuk menghentikan program
-2. download mysql-connector-j-9.3.0 pada browser  https://dev.mysql.com/downloads/connector/j/9.3.html setelah masuk pilih "Select Operating System:" yang "platform independent" 
+1. download mysql-connector-j-9.3.0 pada browser  https://dev.mysql.com/downloads/connector/j/9.3.html setelah masuk pilih "Select Operating System:" yang "platform independent" 
+2. download apache NetBeans IDE untuk menjalankan program java
+link download https://netbeans.apache.org/front/main/download/ 
 - lalu download yang "(mysql-connector-j-9.3.0.zip)"
 3. **XAMPP**: Gunakan XAMPP sebagai lingkungan pengembangan.
 
@@ -33,7 +21,7 @@ Sebelum memulai, pastikan memiliki hal-hal berikut:
 ### 1. Clone Repository
 Pertama, klon repositori ini ke direktori lokal:
 ```bash
-git clone https://github.com/Jauhari007/project-manager
+git clone https://github.com/Jauhari007/project-manager.git
 ```
 
 
