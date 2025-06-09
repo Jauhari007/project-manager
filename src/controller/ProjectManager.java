@@ -10,7 +10,7 @@ public class ProjectManager extends BaseManager {
     public ProjectManager() {
         super();
     }
-
+    // === Create Project ===
     public void createProject(Project project) {
         try {
             String sql = "INSERT INTO projects (name, customer, status, start_date, end_date) VALUES (?, ?, ?, ?, ?)";
@@ -47,5 +47,34 @@ public class ProjectManager extends BaseManager {
             e.printStackTrace();
         }
         return projects;
+    }
+
+    // === Update Project ===
+    public void updateProject(Project project) {
+        try {
+            String sql = "UPDATE projects SET name = ?, customer = ?, status = ?, start_date = ?, end_date = ? WHERE id = ?";
+            PreparedStatement stmt = db.prepareStatement(sql);
+            stmt.setString(1, project.getName());
+            stmt.setString(2, project.getCustomer());
+            stmt.setString(3, project.getStatus());
+            stmt.setString(4, project.getStartDate());
+            stmt.setString(5, project.getEndDate());
+            stmt.setInt(6, project.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // === Delete Project ===
+    public void deleteProject(int projectId) {
+        try {
+            String sql = "DELETE FROM projects WHERE id = ?";
+            PreparedStatement stmt = db.prepareStatement(sql);
+            stmt.setInt(1, projectId);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -35,12 +35,18 @@ public class ProjectForm extends JFrame {
         // Buttons
         JPanel buttonPanel = new JPanel();
         JButton addButton = new JButton("Add Project");
+        JButton updateButton = new JButton("Update Project");
+        JButton deleteButton = new JButton("Delete Project");
         JButton refreshButton = new JButton("Refresh");
 
         addButton.addActionListener(e -> addProject());
+        updateButton.addActionListener(e -> updateProject());
+        deleteButton.addActionListener(e -> deleteProject());
         refreshButton.addActionListener(e -> loadProjects());
 
         buttonPanel.add(addButton);
+        buttonPanel.add(updateButton);
+        buttonPanel.add(deleteButton);
         buttonPanel.add(refreshButton);
 
         panel.add(scrollPane, BorderLayout.CENTER);
@@ -65,6 +71,79 @@ public class ProjectForm extends JFrame {
     }
 }
 
+    private void deleteProject() {
+    int selectedRow = projectTable.getSelectedRow();
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Pilih project yang ingin dihapus!");
+        return;
+    }
+
+    int id = (int) tableModel.getValueAt(selectedRow, 0);
+    int confirm = JOptionPane.showConfirmDialog(
+        this,
+        "Apakah Anda yakin ingin menghapus project dengan ID " + id + "?",
+        "Konfirmasi Hapus",
+        JOptionPane.YES_NO_OPTION
+    );
+    if (confirm == JOptionPane.YES_OPTION) {
+        projectManager.deleteProject(id);
+        loadProjects();
+    }
+}
+    private void updateProject() {
+    int selectedRow = projectTable.getSelectedRow();
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Pilih project yang ingin diubah!");
+        return;
+    }
+
+    // Ambil data lama
+    int id = (int) tableModel.getValueAt(selectedRow, 0);
+    String nameOld = (String) tableModel.getValueAt(selectedRow, 1);
+    String customerOld = (String) tableModel.getValueAt(selectedRow, 2);
+    String statusOld = (String) tableModel.getValueAt(selectedRow, 3);
+    String startOld = (String) tableModel.getValueAt(selectedRow, 4);
+    String endOld = (String) tableModel.getValueAt(selectedRow, 5);
+
+    // Komponen form
+    JTextField nameField = new JTextField(nameOld);
+    JTextField customerField = new JTextField(customerOld);
+    String[] statuses = {"instal", "non-instal"};
+    JComboBox<String> statusBox = new JComboBox<>(statuses);
+    statusBox.setSelectedItem(statusOld);
+    JTextField startDateField = new JTextField(startOld);
+    JTextField endDateField = new JTextField(endOld);
+
+    JPanel panel = new JPanel(new GridLayout(5, 2));
+    panel.add(new JLabel("Name:"));
+    panel.add(nameField);
+    panel.add(new JLabel("Customer:"));
+    panel.add(customerField);
+    panel.add(new JLabel("Status:"));
+    panel.add(statusBox);
+    panel.add(new JLabel("Start Date:"));
+    panel.add(startDateField);
+    panel.add(new JLabel("End Date:"));
+    panel.add(endDateField);
+
+    int result = JOptionPane.showConfirmDialog(this, panel, "Update Project", JOptionPane.OK_CANCEL_OPTION);
+    if (result == JOptionPane.OK_OPTION) {
+        String name = nameField.getText().trim();
+        String customer = customerField.getText().trim();
+        String status = (String) statusBox.getSelectedItem();
+        String startDate = startDateField.getText().trim();
+        String endDate = endDateField.getText().trim();
+
+        if (name.isEmpty() || customer.isEmpty() || startDate.isEmpty() || endDate.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Semua field harus diisi!");
+            return;
+        }
+
+        Project updated = new Project(id, name, customer, status, startDate, endDate);
+        projectManager.updateProject(updated);
+        loadProjects();
+    }
+}
 
     private void addProject() {
         JTextField nameField = new JTextField();
