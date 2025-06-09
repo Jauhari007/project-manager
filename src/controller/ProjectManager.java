@@ -49,6 +49,31 @@ public class ProjectManager extends BaseManager {
         return projects;
     }
 
+     public List<Project> searchProjects(String keyword) {
+    List<Project> projects = new ArrayList<>();
+    try {
+        String sql = "SELECT id, name, customer, status, start_date, end_date FROM projects WHERE name LIKE ? OR customer LIKE ?";
+        PreparedStatement stmt = db.prepareStatement(sql);
+        stmt.setString(1, "%" + keyword + "%");
+        stmt.setString(2, "%" + keyword + "%");
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Project p = new Project(
+                rs.getInt("id"),
+                rs.getString("name"),
+                rs.getString("customer"),
+                rs.getString("status"),
+                rs.getString("start_date"),
+                rs.getString("end_date")
+            );
+            projects.add(p);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return projects;
+}
+
     // === Update Project ===
     public void updateProject(Project project) {
         try {

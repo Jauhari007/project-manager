@@ -145,6 +145,31 @@ public class ProjectForm extends JFrame {
     }
 }
 
+    private void searchProject() {
+    String keyword = JOptionPane.showInputDialog(this, "Masukkan kata kunci pencarian:");
+    if (keyword == null || keyword.trim().isEmpty()) {
+        return;
+    }
+
+    List<Project> projects = projectManager.searchProjects(keyword.trim());
+    tableModel.setRowCount(0); // clear table
+    for (Project p : projects) {
+        Object[] row = {
+            p.getId(),
+            p.getName(),
+            p.getCustomer(),
+            p.getStatus(),
+            p.getStartDate(),
+            p.getEndDate()
+        };
+        tableModel.addRow(row);
+    }
+
+    if (projects.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Tidak ada proyek yang ditemukan dengan kata kunci tersebut.");
+    }
+}
+
     private void addProject() {
         JTextField nameField = new JTextField();
         JTextField customerField = new JTextField();
